@@ -12,6 +12,8 @@ import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,7 +32,7 @@ import punto2.guihelpers.Gap;
  * Universidad del Valle
  * @author Julian Andres Cantillo // cod: 1431263 - 3743
  */
-public class frmStudent extends JDialog implements ActionListener{
+public class frmStudent extends JDialog implements ActionListener, MouseListener{
 
     private JLabel lblName, lblCode, lblCareer;
     private JTextField fldName, fldCode;
@@ -84,7 +86,7 @@ public class frmStudent extends JDialog implements ActionListener{
         setLocationRelativeTo(owner);
         setVisible(true);
         setResizable(false);
-        setSize(350,400);
+        setSize(450,400);
     }
     
     private JPanel pnlMain(){
@@ -135,6 +137,7 @@ public class frmStudent extends JDialog implements ActionListener{
         
         lstEnrolments = new JList();
         lstEnrolments.setSize(300, 300);
+        lstEnrolments.addMouseListener(this);
         
         studentsToolbar.add(btnNewEnrolment);
         studentsToolbar.add(btnUpdateCourses);
@@ -218,5 +221,25 @@ public class frmStudent extends JDialog implements ActionListener{
         if(cmd.equals(CMD_UPDATE_ENROLMENT_LIST)){
             lstEnrolments.setListData( student.getEnrolments().toArray() );
         }
-    } 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource() == lstEnrolments && e.getClickCount() >= 2){
+            Enrolment tmp = (Enrolment) lstEnrolments.getSelectedValue();
+            frmEnrolment frm = new frmEnrolment(owner, student, tmp);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }

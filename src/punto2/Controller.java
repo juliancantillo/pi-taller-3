@@ -6,7 +6,10 @@
 
 package punto2;
 
+import exceptions.StudentEnrollementException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Universidad del Valle
@@ -147,9 +150,17 @@ public class Controller {
         
         students.add(s1);
         students.add(s2);
-
-        s1.addCourseToEnrolments("2014", c2);
-        s1.addCourseToEnrolments("2014", c1);
+        
+        try {
+            s1.addCourseToEnrolments("2014", c2);
+        } catch (StudentEnrollementException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            s1.addCourseToEnrolments("2014", c1);
+        } catch (StudentEnrollementException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public ArrayList<Student> getStudents() {

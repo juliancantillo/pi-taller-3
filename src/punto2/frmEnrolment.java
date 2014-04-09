@@ -6,12 +6,16 @@
 
 package punto2;
 
+import exceptions.EnrollmentRecordScoreException;
+import exceptions.StudentEnrollementException;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -164,14 +168,19 @@ public class frmEnrolment extends JDialog implements ActionListener{
         if(cmd.equals(btnSave.getActionCommand())){
             
             enrolment.setPeriod( fldPeriod.getText() );
-            enrolment.setScore( Double.parseDouble( fldScore.getText().equals("") ? "0.0" : fldScore.getText() ));
             enrolment.setCourse( (Course) slctCourse.getSelectedItem() );
+            try {
+                enrolment.recordScore( fldScore.getText() );
+            } catch (EnrollmentRecordScoreException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
             
             if(!added){
-                if(student.addCourseToEnrolments(enrolment)){
+                try {
+                    student.addCourseToEnrolments(enrolment);
                     JOptionPane.showMessageDialog(this, R.STR_STUDENT_HAVE_BEEN_ENROLLED);
-                }else{
-                    JOptionPane.showMessageDialog(this, R.STR_STUDENT_IS_ALL_READY_ENROLLED);
+                } catch (StudentEnrollementException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
             

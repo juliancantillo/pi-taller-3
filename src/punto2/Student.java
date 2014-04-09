@@ -6,6 +6,8 @@
 
 package punto2;
 
+import exceptions.StudentEnrollementException;
+import exceptions.StudentRecordScoreException;
 import java.util.ArrayList;
 
 /**
@@ -54,22 +56,20 @@ public class Student {
         return enrolments;
     }
     
-    public boolean addCourseToEnrolments( String period, Course course ){
+    public void addCourseToEnrolments( String period, Course course ) throws StudentEnrollementException{
         
         if( !isEnrolledToCourse(period, course) ){
             this.enrolments.add( new Enrolment(period, course) );
-            return true;
         }else{
-            return false;
+            throw new StudentEnrollementException(R.STR_STUDENT_IS_ALL_READY_ENROLLED);
         }
     }
     
-    public boolean addCourseToEnrolments(Enrolment enrolment){
+    public void addCourseToEnrolments(Enrolment enrolment) throws StudentEnrollementException{
         if( !isEnrolledToCourse(enrolment.getPeriod(), enrolment.getCourse()) ){
             this.enrolments.add( enrolment );
-            return true;
         }else{
-            return false;
+            throw new StudentEnrollementException(R.STR_STUDENT_IS_ALL_READY_ENROLLED);
         }
     }
     
@@ -119,7 +119,7 @@ public class Student {
         return coursesList;
     }
     
-    public boolean recordScore(double score, String period, Course course){
+    public boolean recordScore(double score, String period, Course course) throws StudentRecordScoreException{
         Course c;
         for (Enrolment enrolment : enrolments) {
             c = enrolment.getCourse();
@@ -129,7 +129,7 @@ public class Student {
             }
         }
         
-        return false;
+        throw new StudentRecordScoreException(R.STR_RECORD_SCORE);
     }
 
     @Override

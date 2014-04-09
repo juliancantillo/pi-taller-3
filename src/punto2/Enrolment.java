@@ -6,6 +6,8 @@
 
 package punto2;
 
+import exceptions.EnrollmentRecordScoreException;
+
 /**
  *
  * @author Usuario
@@ -43,6 +45,26 @@ public class Enrolment {
 
     public void setScore(double score) {
         this.score = score;
+    }
+    
+    public void recordScore(String stringScore) throws EnrollmentRecordScoreException{
+        Double tmpScore = 0.0;
+        
+        if(!"".equals(stringScore)){
+            tmpScore = Double.parseDouble( stringScore );
+        }
+        
+        if(tmpScore > 5){
+            throw new EnrollmentRecordScoreException(R.STR_ENROLMENT_RECORD_GREATER_THAN_FIVE);
+        }
+        else if(tmpScore < 0){
+            throw new EnrollmentRecordScoreException(R.STR_ENROLMENT_RECORD_LOWER_THAN_ZERO);
+        }
+        else if( Double.isNaN(tmpScore) ){
+            throw new EnrollmentRecordScoreException(R.STR_ENROLMENT_RECORD_NAN);
+        }else{
+            this.setScore(tmpScore);
+        }
     }
 
     @Override

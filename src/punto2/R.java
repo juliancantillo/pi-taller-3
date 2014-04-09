@@ -40,7 +40,10 @@ public class R {
             STR_ENROLLED_STUDENTS_LIST="Listado de estudiantes matriculados",
             STR_NOT_FOUND_ENROLLED_STUDENTS="No se encontráron estudiantes matriculados al curso",
             STR_PERIOD = "Periodo",
-            STR_RECORD_SCORE="Registrar una calificación\nEstudiante: %s (%s)\nCurso: %s (%s)\nLa nota se debe escribir con al menos un decimal\nEjemplo: 3.0"
+            STR_RECORD_SCORE="El estudiante no está matriculado al curso",
+            STR_ENROLMENT_RECORD_GREATER_THAN_FIVE = "La nota no puede ser mayor a 5.0",
+            STR_ENROLMENT_RECORD_LOWER_THAN_ZERO = "La nota no puede ser menor a 0.0",
+            STR_ENROLMENT_RECORD_NAN = "La nota debe ser un número válido"
             ;
     public static int HGAP = 3,
             VGAP = 3
